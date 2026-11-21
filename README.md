@@ -6,6 +6,12 @@ The application allows users to sign up, log in, chat with an AI customer suppor
 
 ---
 
+## 🚀 Live Demo
+
+- **Frontend (Deployed on Vercel)**: [https://ai-support-mzd.vercel.app/](https://ai-support-mzd.vercel.app/)
+
+---
+
 ## Tech Stack
 
 - **Frontend**: React 18, Vite, Tailwind CSS, Lucide Icons, React Markdown
@@ -173,11 +179,12 @@ If scaling this beyond a take-home assessment, here are the architectural improv
 
 ---
 
-## Free-Tier Deployment Guide
+## Deployment
 
-- **Database**: MongoDB Atlas M0 Free Cluster (connect via `MONGODB_URI`).
-- **Backend**: Render.com Web Service (`server/` directory, `npm start`, add env vars).
-- **Frontend**: Vercel / Netlify (`client/` directory, build command: `npm run build`, output: `dist`, set `VITE_API_URL`).
+- **Live Application**: [https://ai-support-mzd.vercel.app/](https://ai-support-mzd.vercel.app/)
+- **Database**: MongoDB Atlas Free Tier
+- **Frontend Hosting**: Vercel (Vite React app with build output `dist`, API proxy via `VITE_API_URL`)
+- **Backend Hosting**: Render.com / Railway (`server/` directory, `npm start`)
 
 ---
 
