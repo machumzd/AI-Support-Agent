@@ -3,13 +3,29 @@ import { useChat } from '../../context/ChatContext';
 import MessageBubble from './MessageBubble';
 import TypingIndicator from './TypingIndicator';
 import MessageInput from './MessageInput';
-import { MessageSquare, AlertCircle } from 'lucide-react';
+import { MessageSquare, AlertCircle, CreditCard, Package, KeyRound, Coins } from 'lucide-react';
 
-const SUGGESTED_QUESTIONS = [
-  'How do I request a refund for my order?',
-  'How can I check the delivery status of my package?',
-  'How do I reset my password if I am locked out?',
-  'What are your available plans and pricing options?'
+const SUGGESTED_CARDS = [
+  {
+    icon: CreditCard,
+    title: 'Refund Policy',
+    desc: 'How do I request a refund for my order?'
+  },
+  {
+    icon: Package,
+    title: 'Track Package',
+    desc: 'How can I check the delivery status of my package?'
+  },
+  {
+    icon: KeyRound,
+    title: 'Reset Password',
+    desc: 'How do I reset my password if I am locked out?'
+  },
+  {
+    icon: Coins,
+    title: 'Pricing Plans',
+    desc: 'What are your available plans and pricing options?'
+  }
 ];
 
 const ChatArea = ({ onToggleSidebar, highlightedId }) => {
@@ -31,28 +47,37 @@ const ChatArea = ({ onToggleSidebar, highlightedId }) => {
       <div className="flex-1 overflow-y-auto px-4 py-6">
         {isEmpty ? (
           <div className="h-full flex flex-col items-center justify-center max-w-xl mx-auto px-4 text-center">
-            <div className="w-12 h-12 rounded-full bg-blue-600/10 border border-blue-500/20 text-blue-500 flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-500 flex items-center justify-center mb-4">
               <MessageSquare className="w-6 h-6" />
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-zinc-100">
               How can we help you today?
             </h2>
             <p className="text-xs sm:text-sm text-zinc-400 mt-2 max-w-md">
-              Ask anything about your account, refunds, orders, or service. Or click a quick question below to test.
+              Ask anything about your account, refunds, orders, or service. Or click a quick topic below to test.
             </p>
 
-            {/* Quick test questions */}
+            {/* Quick test questions with clean vector icons */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full mt-6 text-left">
-              {SUGGESTED_QUESTIONS.map((question, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => sendMessage(question)}
-                  className="p-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 hover:text-white transition-colors text-left cursor-pointer"
-                >
-                  "{question}"
-                </button>
-              ))}
+              {SUGGESTED_CARDS.map((card, idx) => {
+                const IconComp = card.icon;
+                return (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => sendMessage(card.desc)}
+                    className="p-3.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 transition-colors text-left cursor-pointer group shadow-sm flex items-start gap-3"
+                  >
+                    <div className="w-7 h-7 rounded-md bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0 mt-0.5 group-hover:bg-blue-600/20">
+                      <IconComp className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-semibold text-zinc-200 group-hover:text-white">{card.title}</p>
+                      <p className="text-[11px] text-zinc-400 mt-0.5 line-clamp-1">{card.desc}</p>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
         ) : (

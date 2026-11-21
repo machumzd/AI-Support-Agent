@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useChat } from '../../context/ChatContext';
-import { MessageSquare, Search, X } from 'lucide-react';
+import { MessageSquare, Search, X, Plus } from 'lucide-react';
 
 const ChatHistorySidebar = ({ isOpen, onClose, onSelectMessage }) => {
-  const { messages, isLoadingHistory } = useChat();
+  const { messages, isLoadingHistory, clearHistory } = useChat();
   const [search, setSearch] = useState('');
 
   // Extract past user queries from the loaded conversation history
@@ -19,6 +19,17 @@ const ChatHistorySidebar = ({ isOpen, onClose, onSelectMessage }) => {
   const handleItemClick = (messageId) => {
     if (onSelectMessage && messageId) {
       onSelectMessage(messageId);
+    }
+    if (window.innerWidth < 1024 && onClose) {
+      onClose();
+    }
+  };
+
+  const handleNewChat = () => {
+    if (messages.length > 0) {
+      if (window.confirm('Start a new chat? This will clear active messages.')) {
+        clearHistory();
+      }
     }
     if (window.innerWidth < 1024 && onClose) {
       onClose();
@@ -41,15 +52,27 @@ const ChatHistorySidebar = ({ isOpen, onClose, onSelectMessage }) => {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="p-3 border-b border-zinc-800 flex items-center justify-between">
-          <span className="text-xs font-semibold text-zinc-200">Past Conversations</span>
-          <button 
+        {/* Header & New Chat Button */}
+        <div className="p-3 border-b border-zinc-800">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-semibold text-zinc-200">Past Conversations</span>
+            <button 
+              type="button"
+              onClick={onClose} 
+              className="p-1 text-zinc-400 hover:text-white lg:hidden"
+              aria-label="Close sidebar"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <button
             type="button"
-            onClick={onClose} 
-            className="p-1 text-zinc-400 hover:text-white lg:hidden"
-            aria-label="Close sidebar"
+            onClick={handleNewChat}
+            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-md text-xs font-medium transition-colors shadow-sm cursor-pointer"
           >
-            <X className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
+            <span>New Chat</span>
           </button>
         </div>
 
@@ -62,8 +85,18 @@ const ChatHistorySidebar = ({ isOpen, onClose, onSelectMessage }) => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search history..."
-              className="w-full bg-zinc-950 border border-zinc-800 rounded px-2.5 pl-8 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-blue-500 transition-colors"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded px-2.5 pl-8 pr-6 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-blue-500 transition-colors"
             />
+            {search && (
+              <button
+                type="button"
+                onClick={() => setSearch('')}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+                aria-label="Clear search"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            )}
           </div>
         </div>
 
