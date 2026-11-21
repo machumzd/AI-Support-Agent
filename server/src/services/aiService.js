@@ -46,7 +46,7 @@ You can manage or change your subscription anytime in your account dashboard.`;
   }
 
   if (query.includes('shipping') || query.includes('track') || query.includes('delivery')) {
-    return `Standard delivery typically takes **3–5 business days**. Once your package has shipped, you will receive an email containing your tracking number and courier details.
+    return `Standard delivery typically takes **3-5 business days**. Once your package has shipped, you will receive an email containing your tracking number and courier details.
 
 You can also check live tracking directly under **Account > My Orders**.`;
   }
