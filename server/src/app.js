@@ -10,6 +10,9 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
 
+// Trust proxy header from Render / reverse proxies for accurate rate limiting
+app.set('trust proxy', 1);
+
 app.use(helmet());
 app.use(morgan(config.isProd ? 'combined' : 'dev'));
 

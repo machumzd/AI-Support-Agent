@@ -6,6 +6,7 @@ const apiLimiter = rateLimit({
   max: config.rateLimit.max,
   standardHeaders: true,
   legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
   message: { message: 'Too many requests, please slow down' }
 });
 
@@ -14,6 +15,7 @@ const authLimiter = rateLimit({
   max: config.rateLimit.authMax,
   standardHeaders: true,
   legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
   message: { message: 'Too many login/signup attempts. Please try again after 15 minutes' }
 });
 
@@ -22,6 +24,7 @@ const chatLimiter = rateLimit({
   max: config.rateLimit.chatMax,
   standardHeaders: true,
   legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
   message: { message: 'Message rate limit exceeded. Please wait a moment before sending another message' }
 });
 
