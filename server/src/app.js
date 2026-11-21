@@ -31,6 +31,18 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(apiLimiter);
 
+app.get('/', (req, res) => {
+  res.json({
+    message: 'AI Customer Support Agent API is running',
+    status: 'healthy',
+    endpoints: {
+      health: '/health',
+      auth: ['/auth/signup', '/auth/login', '/auth/me'],
+      chat: ['/chat/send', '/chat/history']
+    }
+  });
+});
+
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', uptime: process.uptime() });
 });
