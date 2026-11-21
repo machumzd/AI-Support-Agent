@@ -15,7 +15,7 @@ module.exports = {
   ai: {
     provider: process.env.AI_PROVIDER || 'openrouter',
     openrouterApiKey: process.env.OPENROUTER_API_KEY || '',
-    openrouterModel: process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct:free',
+    openrouterModel: process.env.OPENROUTER_MODEL || 'openrouter/free',
     hfApiKey: process.env.HUGGINGFACE_API_KEY || '',
     hfModel: process.env.HUGGINGFACE_MODEL || 'facebook/blenderbot-400M-distill'
   },

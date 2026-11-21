@@ -26,7 +26,7 @@ services:
       - JWT_EXPIRES_IN=7d
       - AI_PROVIDER=openrouter
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
-      - OPENROUTER_MODEL=meta-llama/llama-3.3-70b-instruct:free
+      - OPENROUTER_MODEL=openrouter/free
       - CLIENT_URL=http://localhost:3000
     depends_on:
       - mongodb
